@@ -74,7 +74,7 @@ template <class T, class U> int32_t APIServerPort<T, U>::runOnce()
     if (client) {
         // Close any previous connection (see FIXME in header file)
         if (openAPI) {
-#if RAK_4631
+#if RAK3312
             // RAK13800 Ethernet requests periodically take more time
             // This backoff addresses most cases keeping max wait < 1s
             // Reconnections are delayed by full wait time
@@ -91,7 +91,7 @@ template <class T, class U> int32_t APIServerPort<T, U>::runOnce()
         openAPI.reset(new T(client));
     }
 
-#if RAK_4631
+#if RAK3312
     waitTime = 100;
 #endif
     return 100; // only check occasionally for incoming connections

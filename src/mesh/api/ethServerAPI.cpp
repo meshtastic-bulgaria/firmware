@@ -32,6 +32,4 @@ ethServerAPI::ethServerAPI(EthernetClient &_client) : ServerAPI(_client)
     api_type = TYPE_ETH;
 }
 
-ethServerPort::ethServerPort(int port) : APIServerPort(port) {}
-
 #endif

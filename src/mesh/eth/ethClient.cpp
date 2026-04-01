@@ -8,9 +8,7 @@
 #include "target_specific.h"
 #include <RAK13800_W5100S.h>
 #include <SPI.h>
-
-#if HAS_NETWORKING
-
+SPIClass SPI1(HSPI);
 #ifndef DISABLE_NTP
 #include <NTPClient.h>
 
@@ -75,7 +73,8 @@ static int32_t reconnectETH()
             ETH_SPI_PORT.setRX(PIN_SPI0_MISO);
             ETH_SPI_PORT.begin();
 #endif
-            Ethernet.init(ETH_SPI_PORT, PIN_ETHERNET_SS);
+            SPI1.begin(PIN_ETH_SCLK, PIN_ETH_MISO, PIN_ETH_MOSI, PIN_ETH_CS);
+            Ethernet.init(SPI1, PIN_ETHERNET_SS);
 
             int status = 0;
             if (config.network.address_mode == meshtastic_Config_NetworkConfig_AddressMode_DHCP) {
@@ -128,7 +127,7 @@ static int32_t reconnectETH()
 
 #if !MESHTASTIC_EXCLUDE_SOCKETAPI
             if (config.display.displaymode != meshtastic_Config_DisplayConfig_DisplayMode_COLOR) {
-                initApiServer();
+                initApiServer(4403);
             }
 #endif
 #if HAS_UDP_MULTICAST
@@ -188,7 +187,8 @@ bool initEthernet()
         ETH_SPI_PORT.setRX(PIN_SPI0_MISO);
         ETH_SPI_PORT.begin();
 #endif
-        Ethernet.init(ETH_SPI_PORT, PIN_ETHERNET_SS);
+        SPI1.begin(PIN_ETH_SCLK, PIN_ETH_MISO, PIN_ETH_MOSI, PIN_ETH_CS);
+        Ethernet.init(SPI1, PIN_ETHERNET_SS);
 
         uint8_t mac[6];
 
@@ -259,5 +259,3 @@ bool isEthernetAvailable()
         return true;
     }
 }
-
-#endif

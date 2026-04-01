@@ -56,3 +56,13 @@
 #define GPS_RX_PIN 44
 
 #endif
+
+#define PIN_ETH_CS 12
+#define PIN_ETH_SCLK 13
+#define PIN_ETH_MISO 10
+#define PIN_ETH_MOSI 11
+#define PIN_ETH_RST 9
+#define ETH_SPI_PORT SPI
+#define PIN_ETHERNET_SS PIN_ETH_CS
+#define PIN_ETHERNET_RESET PIN_ETH_RST
+#define W5100_MAX_SOCK_NUM 1
